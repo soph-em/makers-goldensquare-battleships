@@ -43,3 +43,16 @@ def test_when_we_place_a_ship_then_its_place_on_the_board_is_marked_out():
     assert not game.ship_at(4, 3)
     assert not game.ship_at(3, 1)
     assert not game.ship_at(4, 1)
+
+"""
+When we place a ship it moves from unplaced list to placed list
+"""
+def test_unplaced_list_construction():
+    game = Game()
+    assert len(game.unplaced_ships_list) == 5
+
+def test_placed_ship_moves_to_placed_list():
+    game = Game()
+    unplaced_list_cache = game.unplaced_ships_list.copy()
+    game.place_ship(3,"horizontal",1,1)
+    assert unplaced_list_cache[1] in game.placed_ships_list

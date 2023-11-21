@@ -3,7 +3,8 @@ class ShipPlacement:
         self.length = length
         self.orientation = orientation
         self.row = row
-        self.col = col
+        self.col = col     
+
 
     def covers(self, row, col):
         if self.orientation == "vertical":

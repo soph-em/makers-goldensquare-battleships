@@ -1,4 +1,6 @@
 from lib.ship_placement import ShipPlacement
+from lib.game import Game
+import pytest
 
 """
 Initialises with a length, orientation, row, and col
@@ -54,3 +56,23 @@ def test_has_a_friendly_string_representation():
         length=5, orientation="horizontal", row=3, col=2)
     assert str(
         ship_placement) == "ShipPlacement(length=5, orientation=horizontal, row=3, col=2)"
+
+"""
+Does it go past edge of the board
+"""
+def test_disallows_if_over_edge_of_board_horizontal():
+    args_list = [[5, -1], [5, 11], [5, 8]]
+    for args in args_list:
+        with pytest.raises(ValueError) as v_err:
+            game = Game()
+            game.place_ship(length=args[0], orientation="horizontal", row=2, col=args[1])
+        assert str(v_err.value) == "Invalid placement: ship overlaps board edge"
+
+def test_disallows_if_over_edge_of_board_vertical():
+    args_list = [[5, -1], [5, 11], [5, 8]]
+    for args in args_list:
+        with pytest.raises(ValueError) as v_err:
+            game = Game()
+            game.place_ship(length=args[0], orientation="vertical", row=args[1], col=2)
+        assert str(v_err.value) == "Invalid placement: ship overlaps board edge"
+
